@@ -3,7 +3,7 @@ import { auth } from "../lib/firebase";
 import {
   GoogleAuthProvider,
   signInWithPopup,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -40,7 +40,7 @@ const Signup: React.FC<SignupProps> = ({ loggedIn }) => {
 
   useEffect(() => {
     if (loggedIn) {
-      navigate("/");
+      navigate("/setup");
     }
   }, [loggedIn]);
 
@@ -57,30 +57,28 @@ const Signup: React.FC<SignupProps> = ({ loggedIn }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            className="input-box"
+            className={
+              password === confirmPass ? "input-box" : "input-box-error"
+            }
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <input
-            className="input-box"
+            className={
+              password === confirmPass ? "input-box" : "input-box-error"
+            }
             type="password"
             placeholder="Confirm Password"
             value={confirmPass}
             onChange={(e) => setConfirmPass(e.target.value)}
           />
-          <button
-            className="input-button"
-            onClick={handleEmailSignup}
-          >
+          <button className="input-button" onClick={handleEmailSignup}>
             Signup
           </button>
           <div className="divider">Or</div>
-          <button
-            className="google-button"
-            onClick={handleGoogleSignup}
-          >
+          <button className="google-button" onClick={handleGoogleSignup}>
             Sign up with Google
           </button>
         </div>

@@ -1,8 +1,10 @@
 type User = {
   displayName: string;
+  profilePicture: string;
   birthdate: string;
   gender: string;
   orientation: string;
+  status: string;
   bio: string;
   location: string;
   interests: string[];
