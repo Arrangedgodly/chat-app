@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main-container {
+  @apply flex flex-col items-center justify-center h-screen
+}
+
+.input-box {
+  @apply border-2 border-gray-300 mb-2 p-2 rounded-lg focus:outline-none focus:border-primary
+}
+
+.input-box-error {
+  @apply border-2 border-red-500 mb-2 p-2 rounded-lg focus:outline-none focus:border-primary
+}
+
+.input-button {
+  @apply border-2 border-gray-300 mb-2 p-2 rounded-lg bg-primary text-primary-content focus:outline-none focus:border-primary
+}
+
+.google-button {
+  @apply border-2 border-gray-300 mb-2 p-2 rounded-lg bg-secondary text-secondary-content focus:outline-none focus:border-primary
+}
