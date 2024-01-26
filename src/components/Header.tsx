@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { handleLogout } from "../lib/firebase";
+import { PiHeartDuotone } from "react-icons/pi";
 import { RxPerson } from "react-icons/rx";
 import { IoIosChatbubbles } from "react-icons/io";
 import { FaUserFriends } from "react-icons/fa";
@@ -14,7 +15,10 @@ const Header: React.FC<HeaderProps> = ({ loggedIn }) => {
     <div className="navbar bg-primary text-primary-content fixed top-0">
       <div className="navbar-start">
         <Link className="text-xl font-bold mx-2" to="/">
-          <h1 className="text-xl font-bold mx-2">Chat App</h1>
+          <h1 className="text-xl font-bold mx-2 flex items-center">
+            <PiHeartDuotone />
+            Finderz
+          </h1>
         </Link>
       </div>
       {loggedIn ? (
@@ -31,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ loggedIn }) => {
           <li>
             <Link
               className="tooltip tooltip-bottom flex mx-2"
-              to="/chat"
+              to="/chats"
               data-tip="Chats"
             >
               <IoIosChatbubbles />

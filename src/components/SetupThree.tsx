@@ -4,6 +4,7 @@ type SetupThreeProps = {
   location: string;
   setLocation: (location: string) => void;
   canSubmit: boolean;
+  handleSubmit: () => void;
 };
 
 const SetupThree: React.FC<SetupThreeProps> = ({
@@ -12,6 +13,7 @@ const SetupThree: React.FC<SetupThreeProps> = ({
   location,
   setLocation,
   canSubmit,
+  handleSubmit,
 }) => {
   return (
     <div
@@ -37,19 +39,15 @@ const SetupThree: React.FC<SetupThreeProps> = ({
             inputMode="numeric"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$"
           />
           <div className="label-text-alt">Zip Code</div>
         </label>
-        <a className="input-button mx-2" href="#setup-two">
+        <a className="previous-button mx-2" href="#setup-two">
           Previous
         </a>
         <a
-          className={
-            canSubmit
-              ? "btn btn-secondary text-2xl my-2 mx-2"
-              : "btn btn-disabled text-2xl my-2 mx-2"
-          }
+          className={canSubmit ? "input-button mx-2" : "disabled-button mx-2"}
+          onClick={handleSubmit}
         >
           Save
         </a>

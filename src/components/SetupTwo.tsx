@@ -51,7 +51,7 @@ const SetupTwo: React.FC<SetupTwoProps> = ({
             <option>Its complicated</option>
           </select>
         </label>
-        <a className="input-button mx-2" href="#setup-one">
+        <a className="previous-button mx-2" href="#setup-one">
           Previous
         </a>
         <a className="input-button mx-2" href="#setup-three">

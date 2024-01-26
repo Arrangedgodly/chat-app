@@ -1,12 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  signOut
+  signOut,
 } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
@@ -43,4 +43,21 @@ export const handleEmailLogin = async (email: string, password: string) => {
 
 export const handleLogout = async () => {
   signOut(auth);
+};
+
+export const handleCreateUser = async (uid: string, user: any) => {
+  const res = await setDoc(doc(db, "users", uid), user);
+  return res;
+};
+
+export const checkUserData = async (uid: string) => {
+  const userRef = doc(db, "users", uid);
+  const userSnapshot = await getDoc(userRef);
+  return userSnapshot.exists();
+};
+
+export const getUserData = async (uid: string) => {
+  const userRef = doc(db, "users", uid);
+  const userSnapshot = await getDoc(userRef);
+  return userSnapshot.data();
 };
