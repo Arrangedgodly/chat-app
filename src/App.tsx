@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Header from './components/Header'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Setup from './components/Setup'
@@ -9,6 +9,8 @@ import { onAuthStateChanged } from 'firebase/auth'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
+  const [setupComplete, setSetupComplete] = useState(false)
+  const navigate = useNavigate()
 
   const handleAuthChange = () => {
     onAuthStateChanged(auth, (user) => {
@@ -23,6 +25,12 @@ function App() {
   useEffect(() => {
     handleAuthChange()
   }, [])
+
+  useEffect(() => {
+    if (loggedIn && !setupComplete) {
+      navigate('/setup')
+    }
+  }, [loggedIn, setupComplete])
 
   return (
     <>

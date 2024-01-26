@@ -19,5 +19,5 @@
 }
 
 .google-button {
-  @apply btn btn-secondary text-2xl my-2;
+  @apply btn btn-ghost text-2xl my-2;
 }

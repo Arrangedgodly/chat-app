@@ -1,11 +1,7 @@
-import { auth } from "../lib/firebase";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithEmailAndPassword
-} from "firebase/auth";
+import { handleEmailLogin } from "../lib/firebase";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import GoogleAuth from "./GoogleAuth";
 
 type LoginProps = {
   loggedIn: boolean;
@@ -16,25 +12,8 @@ const Login: React.FC<LoginProps> = ({ loggedIn }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleGoogleLogin = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
-
-  const handleEmailLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+  const handleLogin = () => {
+    handleEmailLogin(email, password);
   };
 
   useEffect(() => {
@@ -64,17 +43,12 @@ const Login: React.FC<LoginProps> = ({ loggedIn }) => {
           />
           <button
             className="input-button"
-            onClick={handleEmailLogin}
+            onClick={handleLogin}
           >
             Login
           </button>
           <div className="divider">Or</div>
-          <button
-            className="google-button"
-            onClick={handleGoogleLogin}
-          >
-            Login with Google
-          </button>
+          <GoogleAuth />
         </div>
       </div>
     </div>

@@ -1,21 +1,15 @@
 import { Link } from "react-router-dom";
-import { auth } from "../lib/firebase";
-import { signOut } from "firebase/auth";
+import { handleLogout } from "../lib/firebase";
+import { RxPerson } from "react-icons/rx";
+import { IoIosChatbubbles } from "react-icons/io";
+import { FaUserFriends } from "react-icons/fa";
+import { SlLogout } from "react-icons/sl";
 
 type HeaderProps = {
   loggedIn: boolean;
 };
 
 const Header: React.FC<HeaderProps> = ({ loggedIn }) => {
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        console.log("Logged out");
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
   return (
     <div className="navbar bg-primary text-primary-content fixed top-0">
       <div className="navbar-start">
@@ -24,28 +18,44 @@ const Header: React.FC<HeaderProps> = ({ loggedIn }) => {
         </Link>
       </div>
       {loggedIn ? (
-        <div className="navbar-end">
-          <Link
-            className="btn btn-primary-content text-primary mx-2"
-            to="/profile"
-          >
-            Profile
-          </Link>
-          <Link
-            className="btn btn-secondary text-secondary-content mx-2"
-            to="/chats"
-          >
-            Chats
-          </Link>
-          <Link
-            className="btn btn-accent text-accent-content mx-2"
-            to="/friends"
-          >
-            Friends
-          </Link>
-          <button className="btn btn-ghost" onClick={handleLogout}>
-            Logout
-          </button>
+        <div className="navbar-end menu menu-lg menu-horizontal">
+          <li>
+            <Link
+              className="tooltip tooltip-bottom flex mx-2"
+              to="/profile"
+              data-tip="Profile"
+            >
+              <RxPerson />
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="tooltip tooltip-bottom flex mx-2"
+              to="/chat"
+              data-tip="Chats"
+            >
+              <IoIosChatbubbles />
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="tooltip tooltip-bottom flex mx-2"
+              to="/friends"
+              data-tip="Friends"
+            >
+              <FaUserFriends />
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="tooltip tooltip-bottom flex mx-2"
+              to="/"
+              data-tip="Logout"
+              onClick={handleLogout}
+            >
+              <SlLogout />
+            </Link>
+          </li>
         </div>
       ) : (
         <div className="navbar-end">

@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
-import { auth } from "../lib/firebase";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
+import { handleEmailSignup } from "../lib/firebase";
 import { useNavigate } from "react-router-dom";
+import GoogleAuth from "./GoogleAuth";
 
 type SignupProps = {
   loggedIn: boolean;
@@ -17,25 +13,8 @@ const Signup: React.FC<SignupProps> = ({ loggedIn }) => {
   const [confirmPass, setConfirmPass] = useState("");
   const navigate = useNavigate();
 
-  const handleGoogleSignup = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
-
-  const handleEmailSignup = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+  const handleSignup = () => {
+    handleEmailSignup(email, password);
   };
 
   useEffect(() => {
@@ -74,13 +53,11 @@ const Signup: React.FC<SignupProps> = ({ loggedIn }) => {
             value={confirmPass}
             onChange={(e) => setConfirmPass(e.target.value)}
           />
-          <button className="input-button" onClick={handleEmailSignup}>
+          <button className="input-button" onClick={handleSignup}>
             Signup
           </button>
           <div className="divider">Or</div>
-          <button className="google-button" onClick={handleGoogleSignup}>
-            Sign up with Google
-          </button>
+          <GoogleAuth />
         </div>
       </div>
     </div>
