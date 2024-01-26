@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -10,10 +10,16 @@ const firebaseConfig = {
   storageBucket: "chat-app-103a6.appspot.com",
   messagingSenderId: "198544374363",
   appId: "1:198544374363:web:dcfe9d1e1377d0c76a5d7e",
-  measurementId: "G-P1RKZ985RJ"
+  measurementId: "G-P1RKZ985RJ",
 };
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+export const handleGoogleAuth = async () => {
+  const provider = new GoogleAuthProvider();
+  const res = await signInWithPopup(auth, provider);
+  return res;
+};
