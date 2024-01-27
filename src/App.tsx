@@ -72,7 +72,7 @@ function App() {
             />
           }
         />
-        <Route path="/profile" element={<Profile user={user} />} />
+        <Route path="/profile" element={<Profile user={user} uid={uid} />} />
         <Route path="/chats" element={<Chats />} />
         <Route path="/friends" element={<Friends />} />
         <Route path="/" element={<Feed />} />

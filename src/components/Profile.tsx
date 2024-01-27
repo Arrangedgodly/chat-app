@@ -1,8 +1,11 @@
+import ProfilePicture from "./ProfilePicture";
+
 type ProfileProps = {
   user: any;
+  uid: string | null;
 };
 
-const Profile: React.FC<ProfileProps> = ({ user }) => {
+const Profile: React.FC<ProfileProps> = ({ user, uid }) => {
   const getAge = (dateString: string) => {
     const today = new Date();
     const birthDate = new Date(dateString);
@@ -20,19 +23,35 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
       {user ? (
         <>
           <h1 className="text-4xl font-bold m-2">{user.displayName}</h1>
-          {user?.profilePicture && (
+          {user?.profilePicture ? (
             <img
-              className="rounded-full h-32 w-32"
+              className="avatar rounded-full h-32 w-32"
               src={user?.profilePicture}
               alt={user.displayName}
             />
+          ) : (
+            <label htmlFor="profile-picture">
+              <div
+                className="avatar placeholder tooltip m-5"
+                data-tip="Upload a profile picture"
+              >
+                <div className="bg-neutral h-32 w-32 rounded-full">
+                  <span className="text-6xl text-neutral-content">+</span>
+                </div>
+              </div>
+            </label>
           )}
-          <p className="text-2xl m-2">
-            {getAge(user.birthdate)} year old - {user.gender}
-          </p>
-          <p className="text-2xl">
-            {user.orientation} - {user.status}
-          </p>
+          <div className="flex">
+            <div className="badge badge-primary m-2">
+              {getAge(user.birthdate)} years old
+            </div>
+            <div className="badge badge-secondary m-2">{user.gender}</div>
+            <div className="badge badge-success m-2">{user.orientation}</div>
+            <div className="badge badge-warning m-2">{user.status}</div>
+          </div>
+          <h2 className="text-2xl font-bold m-2">About me</h2>
+          <p className="text-xl m-2">{user.bio}</p>
+          <ProfilePicture uid={uid} />
         </>
       ) : (
         <>

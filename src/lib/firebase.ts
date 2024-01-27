@@ -8,7 +8,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { getStorage } from "firebase/storage";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAUs93JO-St725YZay3JkFXEk9C-_ALK3M",
@@ -60,4 +60,16 @@ export const getUserData = async (uid: string) => {
   const userRef = doc(db, "users", uid);
   const userSnapshot = await getDoc(userRef);
   return userSnapshot.data();
+};
+
+export const handleUploadPhoto = async (file: any, uid: string) => {
+  const storageRef = ref(storage, `users/${uid}/${file.name}`);
+  const res = await uploadBytes(storageRef, file);
+  return res;
+};
+
+export const updateUserProfilePicture = async (uid: string, url: string) => {
+  const userRef = doc(db, "users", uid);
+  const res = await setDoc(userRef, { profilePicture: url }, { merge: true });
+  return res;
 };
